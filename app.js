@@ -10,6 +10,7 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
 app.use(cors());
+// перепроверяет или есть тело запроса и какой тип (application.json формат)
 app.use(express.json());
 
 // все запросы, которые будут начинаться с записи "/api/contacts" нужно искать здесь: contactsRouter
@@ -21,7 +22,10 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(500).json({ message: err.message });
+  // теперь здесь будет ощибка со статусом 404 или ошибка без статуса
+  // берем из ошибки статус (если его нет - то будет 500 ошибка), берем сообщение(если его нет то выводим "Server error" )
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).json({ message });
 });
 
 module.exports = app;
