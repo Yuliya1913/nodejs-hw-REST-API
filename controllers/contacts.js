@@ -7,6 +7,7 @@ const contacts = require("../models/contacts");
 
 const { HttpError } = require("../helpers/");
 
+// Запрос на все контакты,нужно получить все контакты ввиде массива и их отправить
 const getListContacts = async (req, res, next) => {
   try {
     const result = await contacts.listContacts();
@@ -21,6 +22,7 @@ const getListContacts = async (req, res, next) => {
   }
 };
 
+// contactId берем из объекта req свойство params
 const getContactById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
@@ -39,6 +41,7 @@ const getContactById = async (req, res, next) => {
   }
 };
 
+// запрос на добавление контакта, тело контакта берем из объекта req свойства body
 const getAddContact = async (req, res, next) => {
   try {
     // перепроверяем или поля объекта соответствуют описанной Joi-схеме, если валидация успешна - в полученном объекте
@@ -76,6 +79,9 @@ const getRemoveContact = async (req, res, next) => {
     next(error);
   }
 };
+
+// делаем запрос на определенный адрес на опред id и иизменяем данные, обязательно передавать все параметры,
+// даже если изменился только один т.к.обновляются все поля при запросе
 
 const getUpdateContact = async (req, res, next) => {
   try {
