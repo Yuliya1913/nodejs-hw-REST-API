@@ -2,7 +2,11 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 // импортируем часть проекта,отвечающую за контакты
-const contactsRouter = require("./routes/api/contacts");
+const { contactsRouter } = require("./routes/api");
+
+// импортируем dotenv,чтобы данные с файла inv дошли до глобального process.env и вызываем метод config
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 
