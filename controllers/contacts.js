@@ -13,13 +13,15 @@ const getListContacts = async (req, res) => {
   const { _id: owner } = req.user;
   // параметры запроса мы берем из req.query
   // console.log(req.query);
-  // const { page, limit } = req.query;
-  // const skip = (page - 1) * limit;
+  const { page = 1, limit = 20 } = req.query;
 
-  const result = await Contact.find({ owner }).populate(
-    "owner",
-    "email subscription"
-  );
+  const skip = (page - 1) * limit;
+  console.log(skip);
+
+  const result = await Contact.find({ owner }, "-createdAt -updatedAt", {
+    skip,
+    limit,
+  }).populate("owner", "email subscription");
 
   res.json({
     status: "success",
