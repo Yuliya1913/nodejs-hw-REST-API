@@ -30,25 +30,6 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
-
-    // name: {
-    //   type: String,
-    //   required: true,
-    // },
-    // email: {
-    //   type: String,
-    //   required: true,
-    //   match: emailRegexp,
-    //   unique: true,
-    // },
-    // password: {
-    //   type: String,
-    //   required: true,
-    //   minlength: 6,
-    // },
-    // token: {
-    //   type: String,
-    // },
   },
   { versionKey: false, timestamps: true }
 );
