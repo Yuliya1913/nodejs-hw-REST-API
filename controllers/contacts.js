@@ -9,19 +9,23 @@ const { ctrlWrapper } = require("../helpers");
 
 // Запрос на все контакты,нужно получить все контакты ввиде массива и их отправить
 const getListContacts = async (req, res) => {
-  // будет возвращать все фильмы конкретного пользователя по id
+  // возвращаем все фильмы конкретного пользователя по id
   const { _id: owner } = req.user;
+
   // параметры запроса мы берем из req.query
   // console.log(req.query);
-  const { page = 1, limit = 20 } = req.query;
+  const { page, limit, favorite } = req.query;
 
   const skip = (page - 1) * limit;
-  console.log(skip);
-
-  const result = await Contact.find({ owner }, "-createdAt -updatedAt", {
-    skip,
-    limit,
-  }).populate("owner", "email subscription");
+  // находим контакты у которого параметр поиска favorite=true
+  const result = await Contact.find(
+    { owner, favorite },
+    "-createdAt -updatedAt",
+    {
+      skip,
+      limit,
+    }
+  ).populate("owner", "email subscription");
 
   res.json({
     status: "success",

@@ -60,12 +60,12 @@ const login = async (req, res) => {
   // создаем объект payload - объект про пользователя
   const payload = {
     id: user._id,
-    email: user.email,
     subscription: user.subscription,
   };
 
   // если пароль совпал, то создаем токен и отсылаем его на фронтенд
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "23h" });
+
   // перед тем как отправить данные на фронтенд сохраняем токен в базе данных
   await User.findByIdAndUpdate(user._id, { token });
 
@@ -74,7 +74,7 @@ const login = async (req, res) => {
   res.status(200).json({
     token,
     user: {
-      email: payload.email,
+      email: email,
       subscription: payload.subscription,
     },
   });
@@ -98,9 +98,24 @@ const logout = async (req, res) => {
   });
 };
 
+const updateData = async (req, res) => {
+  // находим пользователя у которого нужно обновить данные
+  const { _id } = req.user;
+
+  const result = await User.findByIdAndUpdate(_id, req.body, { new: true });
+
+  // берем данные про юзера и оправляем их на фронтент
+
+  res.json({
+    email: result.email,
+    subscription: result.subscription,
+  });
+};
+
 module.exports = {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
+  updateData: ctrlWrapper(updateData),
 };

@@ -13,10 +13,6 @@ const userRegisterSchema = Joi.object({
   subscription: Joi.string()
     .valid("starter", "pro", "business")
     .default("starter"),
-
-  // name: Joi.string().required(),
-  // email: Joi.string().pattern(emailRegexp).required(),
-  // password: Joi.string().min(6).required(),
 });
 
 // coздаем Joi - схему для залогинивания
@@ -24,4 +20,9 @@ const userLoginSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
-module.exports = { userRegisterSchema, userLoginSchema };
+
+const updateData = Joi.object({
+  subscription: Joi.string().valid("starter", "pro", "business").required(),
+});
+
+module.exports = { userRegisterSchema, userLoginSchema, updateData };

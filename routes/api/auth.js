@@ -24,6 +24,14 @@ authRouter.post(
 );
 
 authRouter.get("/current", authenticate, controllersAuth.getCurrent);
+
 authRouter.post("/logout", authenticate, controllersAuth.logout);
+
+authRouter.patch(
+  "/",
+  authenticate,
+  validateBody(userSchema.updateData),
+  controllersAuth.updateData
+);
 
 module.exports = authRouter;
