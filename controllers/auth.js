@@ -25,9 +25,8 @@ const fs = require("fs/promises");
 const path = require("path");
 const gravatar = require("gravatar");
 
-// импортируем для редактирования изображения
+// импортируем jimp для редактирования изображения
 const Jimp = require("jimp");
-const jimp = require("jimp");
 
 // создаем новый путь к папке, где будет храниться файл
 const newPath = path.resolve("public", "avatars");
