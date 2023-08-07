@@ -1,11 +1,12 @@
 const multer = require("multer");
 const path = require("path");
 
-//создаем настройки storage, где будет описано,где будет сохранятся файл, под каким именем и другое
+// создаем настройки storage, где будет описано,где будет сохранятся файл, под каким именем и другое
 const destination = path.resolve("tmp");
 // console.log(__dirname);
 // console.log(path.join());
 // console.log(path.resolve("tmp"));
+// console.log(path.join(__dirname));
 
 const storage = multer.diskStorage({
   destination,
