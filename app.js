@@ -20,12 +20,14 @@ app.use(cors());
 // перепроверяет или есть тело запроса и какой тип (application.json формат)
 app.use(express.json());
 
-// все запросы, которые будут начинаться с записи "/api/contacts" нужно искать здесь: contactsRouter
+// позволяет отдавать данные с определ.папок
+//  (если придет запрос на статический файл там где есть расширение,то ищи тот файл в папке public и отдай на фронтенд )
+app.use(express.static("public"));
 
+// все запросы, которые будут начинаться с записи "/api/contacts" нужно искать здесь: contactsRouter
 app.use("/api/contacts", contactsRouter);
 
 // все запросы, которые будут начинаться с записи "/api/auth" нужно искать здесь: authRouter
-
 app.use("/api/auth", authRouter);
 
 app.use((req, res) => {

@@ -5,6 +5,7 @@ const { model, Schema } = require("mongoose");
 const { handleSaveErrror, handleUpdateValid } = require("./hooks");
 
 const { emailRegexp } = require("../constants/user");
+// const gravatar = require("gravatar");
 
 // Создаем схему для пользователя коллекции и передаем описание объекта, который будет сохраняться в коллекции user,
 // вторым аргументом передаем объект с датой добавления и датой обновления
@@ -29,6 +30,10 @@ const userSchema = new Schema(
     token: {
       type: String,
       default: null,
+    },
+    avatarURL: {
+      type: String,
+      required: true,
     },
   },
   { versionKey: false, timestamps: true }
