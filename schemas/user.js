@@ -15,6 +15,10 @@ const userRegisterSchema = Joi.object({
     .default("starter"),
 });
 
+const emailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+});
+
 // coздаем Joi - схему для залогинивания
 const userLoginSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
@@ -25,4 +29,9 @@ const updateData = Joi.object({
   subscription: Joi.string().valid("starter", "pro", "business").required(),
 });
 
-module.exports = { userRegisterSchema, userLoginSchema, updateData };
+module.exports = {
+  userRegisterSchema,
+  emailSchema,
+  userLoginSchema,
+  updateData,
+};

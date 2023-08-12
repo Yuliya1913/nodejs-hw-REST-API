@@ -18,6 +18,15 @@ authRouter.post(
   controllersAuth.register
 );
 
+authRouter.get("/verify/:verificationToken", controllersAuth.verifyEmail);
+
+// если есть человек в базе но он не верификован, то ему повторно отправляют письмо для верификации
+authRouter.post(
+  "/verify",
+  validateBody(userSchema.emailSchema),
+  controllersAuth.resendVerifyEmail
+);
+
 authRouter.post(
   "/login",
   validateBody(userSchema.userLoginSchema),
