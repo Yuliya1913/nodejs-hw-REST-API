@@ -106,7 +106,7 @@ const verifyEmail = async (req, res) => {
   });
 };
 
-// если не пришло письмо для верификации и пользователь не подтвердил email
+// если не пришло письмо для верификации и пользователь не подтвердил email - заново отправляем письмо
 const resendVerifyEmail = async (req, res) => {
   const { email } = req.body;
   // проверяем или есть пользователь в базе с таким email
@@ -130,7 +130,7 @@ const resendVerifyEmail = async (req, res) => {
   // отправляем пользователю письмо снова
   await sendEmail(verifyEmail);
 
-  res.status(200).json({ message: "Verification successful" });
+  res.status(200).json({ message: "Verification email sent" });
 };
 
 const login = async (req, res) => {
