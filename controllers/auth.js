@@ -159,7 +159,7 @@ const login = async (req, res) => {
     subscription: user.subscription,
   };
 
-  // если пароль совпал, то создаем токен и отсылаем его на фронтенд
+  // если пароль совпал, то создаем токен(payload, секретное слово и сколько живет токен) и отсылаем его на фронтенд
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "23h" });
 
   // перед тем как отправить данные на фронтенд сохраняем токен в базе данных
@@ -186,7 +186,7 @@ const getCurrent = (req, res) => {
 const logout = async (req, res) => {
   // находим пользователя кто хочет разлогиниться
   const { _id } = req.user;
-  // отправляем в базу данных пустой токен
+  // находим по id пользователя,обновляем поле token и сохраняем (отправляем в базу данных пустой токен)
   await User.findByIdAndUpdate(_id, { token: "" });
 
   res.json({
